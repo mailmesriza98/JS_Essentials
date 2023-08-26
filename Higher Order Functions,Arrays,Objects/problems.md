@@ -25,7 +25,7 @@ return filteredArray;: After the loop is done, the filteredArray containing only
 
 =========================================================================
 
-#Implement your own version of filter
+# Implement your own version of foreach
 
 Problem statement: 
 Write your own version of the forEach function, which iterates over an array and applies a function to each element.
