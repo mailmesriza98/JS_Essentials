@@ -60,3 +60,53 @@ function myForEach(array,callback){
 So here the myForEach function essentially loops through all the elements of the array and calls the function as per the initial call of foreach
 
 so if myForEach(numbers,printSquare) is called.: the line inside the for loop calls the printSquare function with the element at a particular index of nums array.
+
+# Implement your own version of Reduce
+
+function myReduce(reducer, array, initial) {
+    let accumulator = initial !== undefined ? initial : array[0];
+
+    for (let i = initial !== undefined ? 0 : 1; i < array.length; i++) {
+        accumulator = reducer(accumulator, array[i]);
+    }
+   
+    return accumulator;
+}
+
+// Example usage
+const numbers = [1, 2, 3, 4, 5];
+const sumResult = myReduce((x, y) => x + y, numbers);
+console.log(sumResult);  // Output: 15
+
+The myReduce function takes three arguments:
+
+reducer: A function that defines how two values should be combined into one. It takes two arguments and returns a single result.
+array: The array of values that you want to accumulate.
+initial: An optional initial value for the accumulation. If provided, the accumulation starts with this value; otherwise, it starts with the first element of the array.
+Inside the function, accumulator is initialized. If an initial value is provided, it's used as the initial accumulator value. Otherwise, if no initial value is provided, the first element of the array is used as the initial accumulator value.
+
+The for loop starts iterating over the array. If an initial value is provided, the loop starts from index 0; otherwise, it starts from index 1 to skip the first element since it's already set as the initial accumulator.
+
+In each iteration, the reducer function is applied to the current accumulator value and the next element of the array (array[i]). The result of this reduction becomes the new value of the accumulator.
+
+Once all elements have been iterated through, the final accumulated value is returned as the result of the myReduce function.
+
+The example usage demonstrates how to use the myReduce function to sum up the numbers in the numbers array.
+
+As for the differences between myReduce and Array.prototype.reduce, I've explained them in the previous response. The key takeaway is that Array.prototype.reduce is a built-in method with better error handling, potential performance optimizations, and broader recognition among developers. However, creating your custom version like myReduce can help you understand the underlying concepts and mechanics of reducing operations in JavaScript.
+
+const sumResult = myReduce((x, y) => x + y, numbers);
+
+Let's break down the line:
+
+const sumResult: This declares a constant variable named sumResult which will hold the result of the accumulation performed by the myReduce function.
+
+myReduce((x, y) => x + y, numbers): This is a call to the myReduce function. Here's what's happening within this call:
+
+The first argument is a reducer function (x, y) => x + y. This function takes two arguments (x and y) and returns their sum (x + y).
+The second argument is the numbers array that you want to accumulate.
+Since there is no third argument provided, the initial value for accumulation will be the first element of the numbers array (which is 1).
+;: This semicolon marks the end of the statement.
+
+So, the line of code is essentially instructing the myReduce function to iterate through the numbers array and use the provided reducer function (x, y) => x + y to accumulate the values by adding them together. The result, in this case, will be the sum of all the numbers in the numbers array, which is 15.
+
