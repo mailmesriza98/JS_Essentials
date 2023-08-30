@@ -25,6 +25,36 @@ return filteredArray;: After the loop is done, the filteredArray containing only
 
 =========================================================================
 
+# Implement composition of functions
+
+function compose(...functions) {
+  return function(x){
+    for(let i=functions.length-1;i>=0;i--){
+      x=functions[i](x);
+    }
+    return x;
+}
+
+function addTwo(x) {
+    return x + 2;
+}
+
+function multiplyByThree(x) {
+    return x * 3;
+}
+
+function subtractTen(x) {
+    return x - 10;
+}
+
+const composed = compose(subtractTen, multiplyBythree, addTwo);
+const result = composed(5);
+
+console.log(result); // Output will be (5 + 2) * 3 - 10 = 11
+
+In this simplified version of compose, we iterate through the array of functions in reverse order and directly apply each function to the value x, updating x with the result of each function application. 
+
+================================================================================
 # Implement your own version of foreach
 
 Problem statement: 
