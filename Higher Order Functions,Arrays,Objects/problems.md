@@ -2,7 +2,7 @@
 
 Implement filter: Create a function filter that takes an array and a predicate function (a function that returns a boolean) and returns a new array containing only the elements that satisfy the predicate.
 
-```
+```javascript
 function myFilter(array, predicate) {
   const filteredArray = [];
 
