@@ -2,6 +2,7 @@
 
 Implement filter: Create a function filter that takes an array and a predicate function (a function that returns a boolean) and returns a new array containing only the elements that satisfy the predicate.
 
+```
 function myFilter(array, predicate) {
   const filteredArray = [];
 
@@ -16,7 +17,7 @@ function myFilter(array, predicate) {
 function predicate(num){
 return num<5;
 }
-
+```
 
 
 function myFilter(array, predicate): This declares a function named myFilter that takes two arguments: an array and a predicate function. The predicate function is a function that returns a boolean value based on some condition.
