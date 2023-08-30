@@ -83,7 +83,6 @@ Now lets see what the myForEach function does:
 
 ```javascript
 function myForEach(array,callback){
-
   for(let i=0;i<array.length;i++){
       callback(array[i]);
    }
