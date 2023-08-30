@@ -16,6 +16,9 @@ function myFilter(array, predicate) {
 function predicate(num){
 return num<5;
 }
+
+
+
 function myFilter(array, predicate): This declares a function named myFilter that takes two arguments: an array and a predicate function. The predicate function is a function that returns a boolean value based on some condition.
 const filteredArray = [];: This initializes an empty array called filteredArray, which will store the elements that satisfy the predicate condition.
 for (let i = 0; i < array.length; i++) { ... }: This loop iterates through each element of the input array.
