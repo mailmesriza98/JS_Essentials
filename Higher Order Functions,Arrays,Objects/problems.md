@@ -140,3 +140,191 @@ Since there is no third argument provided, the initial value for accumulation wi
 
 So, the line of code is essentially instructing the myReduce function to iterate through the numbers array and use the provided reducer function (x, y) => x + y to accumulate the values by adding them together. The result, in this case, will be the sum of all the numbers in the numbers array, which is 15.
 
+====================================================================================================
+
+# Given an array of strings, use the map function to transform each string to uppercase and return the modified array.
+
+const inputArray = ["hello", "world", "example", "strings"];
+
+const uppercaseArray = inputArray.map(str => str.toUpperCase());
+
+console.log(uppercaseArray);
+
+==================================================================================================
+
+# Use the reduce function to calculate the sum of all numbers in an array.
+
+const arr = [1,2,3,4,5]
+const sum = arr,reduce((sum,cur)=>{
+  return sum+cur;
+},0)
+
+console.log(sum); // Output: 15 (1 + 2 + 3 + 4 + 5)
+
+In this example, the reduce function is used to iterate over each number in the numbers array. The accumulator starts with an initial value of 0, and for each number, it accumulates the sum by adding the currentValue to it. The final sum is stored in the sum variable and printed to the console
+
+=================================================================================================
+
+# Write a function that finds the maximum value in an array using the reduce function.
+
+function findMaxValue(array) {
+    if(array.length===0) return undefined
+    return arr.reduce((max,cur)={return max>cur?max:cur},array[0])
+}
+
+const numbers = [3, 8, 2, 10, 5];
+
+const maxValue = findMaxValue(numbers);
+
+console.log(maxValue); // Output: 10 (maximum value in the array)
+In this function:
+
+We first check if the array is empty, in which case we return undefined.
+The reduce function iterates over the array. For each element, it compares the currentValue with the current max value. If the currentValue is greater, it becomes the new max value; otherwise, the max value remains the same.
+The initial value of max is set to the first element of the array (array[0]).
+The final result is the maximum value in the array, which is then stored in the maxValue variable and printed to the console.
+
+=================================================================================================
+
+# Chaining higher order functions
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Step 1: Use filter to get even numbers
+const evenNumbers = numbers.filter(number => number % 2 === 0);
+
+// Step 2: Use map to square each even number
+const squaredEvenNumbers = evenNumbers.map(number => number ** 2);
+
+// Step 3: Use reduce to calculate the sum
+const sumOfSquaredEvenNumbers = squaredEvenNumbers.reduce((sum, currentValue) => {
+    return sum + currentValue;
+}, 0);
+
+console.log(sumOfSquaredEvenNumbers); // Output: 220 (4 + 16 + 36 + 64 + 100)
+
+====================================================================================================
+
+# Function decorators:
+Create a higher-order function repeat that takes a function and a number n, and returns a new function that calls the original function n times.
+
+function repeat(fn,n){
+      return function(...args){
+        for(let i=0;i<n;i++){ 
+                  fn(...args);
+        }
+     }
+}
+
+
+Certainly! Here's how you can create the repeat higher-order function in JavaScript:
+
+javascript
+Copy code
+function repeat(fn, n) {
+    return function(...args) {
+        for (let i = 0; i < n; i++) {
+            fn(...args);
+        }
+    };
+}
+In this function:
+
+fn is the function you want to repeat.
+n is the number of times you want to call the function.
+The returned function uses the rest parameter ...args to capture any arguments that are passed to it.
+Inside the returned function, a loop is used to call the original function n times, passing along any arguments.
+
+example of the above
+
+function greet(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+const repeatedGreet = repeat(greet, 3);
+repeatedGreet("Alice");  // Output: Hello, Alice!
+                         //         Hello, Alice!
+                         //         Hello, Alice!
+In this example, the repeat function is used to create a new function repeatedGreet that will call the greet function 3 times. When you call repeatedGreet("Alice"), it calls greet("Alice") three times, printing the greeting three times
+
+==================================================================================================
+
+# Currying
+
+ Currying is a technique in functional programming where a function that takes multiple arguments is transformed into a series of functions that each take a single argument. The curried function returns new functions that, when called with arguments, progressively accumulate and process those arguments until all the required arguments are supplied, at which point the original function is executed and the result is returned.
+
+function curry(binaryFn) {
+    return function(firstArg) {
+        return function(secondArg) {
+            return binaryFn(firstArg, secondArg);
+        };
+    };
+}
+
+function add(x, y) {
+    return x + y;
+}
+
+const curriedVal = curry(add);
+const add5 = curriedVal(5);
+const add3 = add5(3)  //output: 8
+
+the curry function takes a binary function (a function that takes two arguments) and returns a curried version of it. The returned curried function takes arguments one at a time and returns new functions until all the required arguments are gathered.
+
+Here's a step-by-step breakdown:
+
+The curry function takes a binary function, like add.
+When you call curriedAdd(5), it returns a new function that takes one argument.
+When you call the returned function with an argument, like add5(3), it applies the original binary function (add) to the accumulated arguments (5 and 3) and returns the result.
+In this way, currying allows you to break down the process of applying a function with multiple arguments into a sequence of single-argument function calls. This can make code more modular and flexible, especially in functional programming contexts.
+
+=====================================================================================================
+
+# Write a function that flattens a nested array using reduce.
+
+function flattenArray(arr) {
+    return arr.reduce((flatArray, currentElement) => {
+        if (Array.isArray(currentElement)) {
+            return flatArray.concat(flattenArray(currentElement));
+        } else {
+            return flatArray.concat(currentElement);
+        }
+    }, []);
+}
+
+const nestedArray = [1, [2, [3, 4], 5], 6, [7, 8]];
+
+const flattenedArray = flattenArray(nestedArray);
+
+console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6, 7, 8]
+
+
+The flattenArray function takes an array as input and uses reduce to process each element.
+If the current element is an array, it recursively calls flattenArray to further flatten it.
+Otherwise, it directly adds the current element to the flatArray.
+The initial value of the accumulator (flatArray) is an empty array ([]).
+The resulting flattenedArray contains all the elements from the nested array flattened into a single-level array.
+
+========================================================================================================
+
+# Create a function partial that takes a function and some arguments, and returns a new function with those arguments pre-filled.
+
+function partial(fn, ...args) {
+    return function(...remainingArgs) {
+        return fn(...args, ...remainingArgs);
+    };
+}
+
+function greet(greeting, name) {
+    console.log(`${greeting}, ${name}!`);
+}
+
+const sayHello = partial(greet ,"Hello);
+sayHello("Alice");
+sayHello("Bob");
+
+The greet function takes two arguments, greeting and name.
+The partial function is used to create a new function sayHello where the first argument is pre-filled with "Hello".
+When you call sayHello("Alice"), it's equivalent to calling greet("Hello", "Alice"), resulting in the output "Hello, Alice!". Similarly, sayHello("Bob") results in "Hello, Bob!".
+
+=============================================================================================================
