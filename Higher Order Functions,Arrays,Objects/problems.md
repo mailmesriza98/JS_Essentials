@@ -27,10 +27,10 @@ if (predicate(array[i])) { ... }: Inside the loop, the predicate function is inv
 array[i]: The current element of the array being processed.
 return filteredArray;: After the loop is done, the filteredArray containing only the elements that satisfy the predicate is returned.
 
-=========================================================================
 
 # Implement composition of functions
 
+```javascript
 function compose(...functions) {
   return function(x){
     for(let i=functions.length-1;i>=0;i--){
@@ -55,17 +55,16 @@ const composed = compose(subtractTen, multiplyBythree, addTwo);
 const result = composed(5);
 
 console.log(result); // Output will be (5 + 2) * 3 - 10 = 11
+```
 
 In this simplified version of compose, we iterate through the array of functions in reverse order and directly apply each function to the value x, updating x with the result of each function application. 
 
-================================================================================
 # Implement your own version of foreach
 
 Problem statement: 
 Write your own version of the forEach function, which iterates over an array and applies a function to each element.
 
-
-
+```javascript
 const numbers = [1, 2, 3, 4, 5];
 
 function printSquare(num) {
@@ -78,11 +77,11 @@ function doublePrint(num) {
 
 myForEach(numbers, printSquare); 
 myForEach(numbers, doubleAndPrint); 
-
+```
 
 Now lets see what the myForEach function does:
 
-
+```javascript
 function myForEach(array,callback){
 
   for(let i=0;i<array.length;i++){
@@ -90,6 +89,7 @@ function myForEach(array,callback){
    }
 
 }
+```
 
 So here the myForEach function essentially loops through all the elements of the array and calls the function as per the initial call of foreach
 
@@ -97,6 +97,7 @@ so if myForEach(numbers,printSquare) is called.: the line inside the for loop ca
 
 # Implement your own version of Reduce
 
+```javascript
 function myReduce(reducer, array, initial) {
     let accumulator = initial !== undefined ? initial : array[0];
 
@@ -111,6 +112,7 @@ function myReduce(reducer, array, initial) {
 const numbers = [1, 2, 3, 4, 5];
 const sumResult = myReduce((x, y) => x + y, numbers);
 console.log(sumResult);  // Output: 15
+```
 
 The myReduce function takes three arguments:
 
@@ -144,33 +146,35 @@ Since there is no third argument provided, the initial value for accumulation wi
 
 So, the line of code is essentially instructing the myReduce function to iterate through the numbers array and use the provided reducer function (x, y) => x + y to accumulate the values by adding them together. The result, in this case, will be the sum of all the numbers in the numbers array, which is 15.
 
-====================================================================================================
 
 # Given an array of strings, use the map function to transform each string to uppercase and return the modified array.
 
+```javascript
 const inputArray = ["hello", "world", "example", "strings"];
 
 const uppercaseArray = inputArray.map(str => str.toUpperCase());
 
 console.log(uppercaseArray);
+```
 
-==================================================================================================
 
 # Use the reduce function to calculate the sum of all numbers in an array.
 
+```javascript
 const arr = [1,2,3,4,5]
 const sum = arr,reduce((sum,cur)=>{
   return sum+cur;
 },0)
 
 console.log(sum); // Output: 15 (1 + 2 + 3 + 4 + 5)
+```
 
 In this example, the reduce function is used to iterate over each number in the numbers array. The accumulator starts with an initial value of 0, and for each number, it accumulates the sum by adding the currentValue to it. The final sum is stored in the sum variable and printed to the console
 
-=================================================================================================
 
 # Write a function that finds the maximum value in an array using the reduce function.
 
+```javascript
 function findMaxValue(array) {
     if(array.length===0) return undefined
     return arr.reduce((max,cur)={return max>cur?max:cur},array[0])
@@ -181,6 +185,8 @@ const numbers = [3, 8, 2, 10, 5];
 const maxValue = findMaxValue(numbers);
 
 console.log(maxValue); // Output: 10 (maximum value in the array)
+```
+
 In this function:
 
 We first check if the array is empty, in which case we return undefined.
@@ -188,10 +194,10 @@ The reduce function iterates over the array. For each element, it compares the c
 The initial value of max is set to the first element of the array (array[0]).
 The final result is the maximum value in the array, which is then stored in the maxValue variable and printed to the console.
 
-=================================================================================================
 
 # Chaining higher order functions
 
+```javascript
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // Step 1: Use filter to get even numbers
@@ -206,12 +212,13 @@ const sumOfSquaredEvenNumbers = squaredEvenNumbers.reduce((sum, currentValue) =>
 }, 0);
 
 console.log(sumOfSquaredEvenNumbers); // Output: 220 (4 + 16 + 36 + 64 + 100)
+```
 
-====================================================================================================
 
 # Function decorators:
 Create a higher-order function repeat that takes a function and a number n, and returns a new function that calls the original function n times.
 
+```javascript
 function repeat(fn,n){
       return function(...args){
         for(let i=0;i<n;i++){ 
@@ -219,12 +226,11 @@ function repeat(fn,n){
         }
      }
 }
+```
 
+create the repeat higher-order function in JavaScript:
 
-Certainly! Here's how you can create the repeat higher-order function in JavaScript:
-
-javascript
-Copy code
+```javascript
 function repeat(fn, n) {
     return function(...args) {
         for (let i = 0; i < n; i++) {
@@ -232,6 +238,8 @@ function repeat(fn, n) {
         }
     };
 }
+```
+
 In this function:
 
 fn is the function you want to repeat.
@@ -241,6 +249,7 @@ Inside the returned function, a loop is used to call the original function n tim
 
 example of the above
 
+```javascript
 function greet(name) {
     console.log(`Hello, ${name}!`);
 }
@@ -249,14 +258,17 @@ const repeatedGreet = repeat(greet, 3);
 repeatedGreet("Alice");  // Output: Hello, Alice!
                          //         Hello, Alice!
                          //         Hello, Alice!
+```
+
+
 In this example, the repeat function is used to create a new function repeatedGreet that will call the greet function 3 times. When you call repeatedGreet("Alice"), it calls greet("Alice") three times, printing the greeting three times
 
-==================================================================================================
 
 # Currying
 
  Currying is a technique in functional programming where a function that takes multiple arguments is transformed into a series of functions that each take a single argument. The curried function returns new functions that, when called with arguments, progressively accumulate and process those arguments until all the required arguments are supplied, at which point the original function is executed and the result is returned.
 
+```javascript
 function curry(binaryFn) {
     return function(firstArg) {
         return function(secondArg) {
@@ -272,6 +284,7 @@ function add(x, y) {
 const curriedVal = curry(add);
 const add5 = curriedVal(5);
 const add3 = add5(3)  //output: 8
+```
 
 the curry function takes a binary function (a function that takes two arguments) and returns a curried version of it. The returned curried function takes arguments one at a time and returns new functions until all the required arguments are gathered.
 
@@ -282,10 +295,10 @@ When you call curriedAdd(5), it returns a new function that takes one argument.
 When you call the returned function with an argument, like add5(3), it applies the original binary function (add) to the accumulated arguments (5 and 3) and returns the result.
 In this way, currying allows you to break down the process of applying a function with multiple arguments into a sequence of single-argument function calls. This can make code more modular and flexible, especially in functional programming contexts.
 
-=====================================================================================================
 
 # Write a function that flattens a nested array using reduce.
 
+```javascript
 function flattenArray(arr) {
     return arr.reduce((flatArray, currentElement) => {
         if (Array.isArray(currentElement)) {
@@ -301,6 +314,7 @@ const nestedArray = [1, [2, [3, 4], 5], 6, [7, 8]];
 const flattenedArray = flattenArray(nestedArray);
 
 console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6, 7, 8]
+```
 
 
 The flattenArray function takes an array as input and uses reduce to process each element.
@@ -309,10 +323,10 @@ Otherwise, it directly adds the current element to the flatArray.
 The initial value of the accumulator (flatArray) is an empty array ([]).
 The resulting flattenedArray contains all the elements from the nested array flattened into a single-level array.
 
-========================================================================================================
 
 # Create a function partial that takes a function and some arguments, and returns a new function with those arguments pre-filled.
 
+```javascript
 function partial(fn, ...args) {
     return function(...remainingArgs) {
         return fn(...args, ...remainingArgs);
@@ -326,9 +340,9 @@ function greet(greeting, name) {
 const sayHello = partial(greet ,"Hello);
 sayHello("Alice");
 sayHello("Bob");
+```
 
 The greet function takes two arguments, greeting and name.
 The partial function is used to create a new function sayHello where the first argument is pre-filled with "Hello".
 When you call sayHello("Alice"), it's equivalent to calling greet("Hello", "Alice"), resulting in the output "Hello, Alice!". Similarly, sayHello("Bob") results in "Hello, Bob!".
 
-=============================================================================================================
