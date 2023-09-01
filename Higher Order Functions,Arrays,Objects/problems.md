@@ -581,3 +581,280 @@ When you call objectToArray(person) with the person object, you'll get the follo
     ["age", 30],
     ["city", "New York"]
 ]
+
+# Given an array of objects and a criteria object, implement a function that filters the array based on the criteria.
+
+```javascript
+function filterByCriteria(array, criteria) {
+    return array.filter(item => {
+        for (const key in criteria) {
+            if (criteria.hasOwnProperty(key) && item[key] !== criteria[key]) {
+                return false;
+            }
+        }
+        return true;
+    });
+}
+
+// Example array of objects
+const people = [
+    { name: "Alice", age: 30, city: "New York" },
+    { name: "Bob", age: 25, city: "Los Angeles" },
+    { name: "Charlie", age: 35, city: "Chicago" },
+    { name: "David", age: 30, city: "New York" }
+];
+
+// Criteria object for filtering
+const criteria = { age: 30, city: "New York" };
+
+const filteredPeople = filterByCriteria(people, criteria);
+
+console.log(filteredPeople);
+
+```
+
+In this example:
+
+The filterByCriteria function takes an array and a criteria object as parameters.
+It uses the filter method to iterate through the array and checks if each object in the array matches the criteria.
+For each object, it iterates through the keys of the criteria object and compares the values with the corresponding values in the object.
+If all criteria are met, the object is included in the filtered result.
+The filteredPeople array will contain objects that match the specified criteria. In this case, it will include objects with an age of 30 and a city of "New York."
+
+# Build a simple shopping cart system using objects and arrays. Implement functions to add items, remove items, calculate the total price, and apply discounts.
+
+```javascript
+// Define a product catalog
+const catalog = {
+    apple: 0.5,
+    banana: 0.25,
+    orange: 0.75,
+    grapes: 1.0,
+};
+
+// Initialize the shopping cart as an empty array
+const shoppingCart = [];
+
+// Function to add items to the cart
+function addItemToCart(item, quantity = 1) {
+    if (catalog.hasOwnProperty(item)) {
+        const cartItem = { item, price: catalog[item], quantity };
+        shoppingCart.push(cartItem);
+        console.log(`${quantity} ${item}(s) added to the cart.`);
+    } else {
+        console.log(`Sorry, ${item} is not available.`);
+    }
+}
+
+// Function to remove items from the cart
+function removeItemFromCart(item, quantity = 1) {
+    const index = shoppingCart.findIndex(cartItem => cartItem.item === item);
+    if (index !== -1) {
+        if (shoppingCart[index].quantity > quantity) {
+            shoppingCart[index].quantity -= quantity;
+            console.log(`${quantity} ${item}(s) removed from the cart.`);
+        } else {
+            shoppingCart.splice(index, 1);
+            console.log(`${item} removed from the cart.`);
+        }
+    } else {
+        console.log(`${item} is not in the cart.`);
+    }
+}
+
+// Function to calculate the total price of items in the cart
+function calculateTotalPrice() {
+    let total = 0;
+    for (const cartItem of shoppingCart) {
+        total += cartItem.price * cartItem.quantity;
+    }
+    return total;
+}
+
+// Function to apply a discount to the cart
+function applyDiscount(discountPercentage) {
+    const discountFactor = 1 - discountPercentage / 100;
+    for (const cartItem of shoppingCart) {
+        cartItem.price *= discountFactor;
+    }
+    console.log(`A ${discountPercentage}% discount has been applied.`);
+}
+
+// Example usage
+addItemToCart("apple", 3);
+addItemToCart("banana", 2);
+addItemToCart("orange", 1);
+removeItemFromCart("apple", 2);
+applyDiscount(10);
+
+console.log("Shopping Cart:", shoppingCart);
+console.log("Total Price:", calculateTotalPrice().toFixed(2));
+```
+output:
+3 apple(s) added to the cart.
+2 banana(s) added to the cart.
+1 orange(s) added to the cart.
+2 apple(s) removed from the cart.
+A 10% discount has been applied.
+Shopping Cart: [
+  { item: 'apple', price: 0.45, quantity: 1 },
+  { item: 'banana', price: 0.225, quantity: 2 },
+  { item: 'orange', price: 0.675, quantity: 1 }
+]
+
+# Create a to-do list manager that uses objects and arrays to handle tasks. Implement functions to add tasks, mark them as complete, and filter by status.
+
+```javascript
+// Initialize the to-do list as an empty array
+const todoList = [];
+
+// Function to add a task to the list
+function addTask(description) {
+    const task = { description, completed: false };
+    todoList.push(task);
+    console.log(`Task "${description}" added.`);
+}
+
+// Function to mark a task as completed
+function completeTask(description) {
+    const task = todoList.find(task => task.description === description);
+    if (task) {
+        task.completed = true;
+        console.log(`Task "${description}" marked as completed.`);
+    } else {
+        console.log(`Task "${description}" not found.`);
+    }
+}
+
+// Function to filter tasks by status (completed or not)
+function filterTasksByStatus(completed = false) {
+    const filteredTasks = todoList.filter(task => task.completed === completed);
+    console.log(`Tasks with status "${completed ? 'completed' : 'not completed'}":`);
+    filteredTasks.forEach(task => {
+        console.log(`- ${task.description}`);
+    });
+}
+
+// Example usage
+addTask("Write a report");
+addTask("Read a book");
+completeTask("Write a report");
+filterTasksByStatus(false); // List of tasks that are not completed
+filterTasksByStatus(true); // List of completed tasks
+
+```
+Task "Write a report" added.
+Task "Read a book" added.
+Task "Write a report" marked as completed.
+Tasks with status "not completed":
+- Read a book
+Tasks with status "completed":
+- Write a report
+
+# Design a basic user authentication system using objects and arrays. Implement functions for user registration, login, logout, and password reset.
+
+```javascript
+// Initialize the user database as an array of user objects
+const usersDatabase = [];
+
+// Function to register a new user
+function registerUser(username, password) {
+    if (!isUsernameAvailable(username)) {
+        console.log("Username is already taken. Please choose another one.");
+        return;
+    }
+
+    const user = { username, password, loggedIn: false };
+    usersDatabase.push(user);
+    console.log(`User "${username}" registered successfully.`);
+}
+
+// Function to check if a username is available
+function isUsernameAvailable(username) {
+    return !usersDatabase.some(user => user.username === username);
+}
+
+// Function to log in a user
+function loginUser(username, password) {
+    const user = usersDatabase.find(user => user.username === username);
+
+    if (user && user.password === password) {
+        user.loggedIn = true;
+        console.log(`User "${username}" logged in successfully.`);
+    } else {
+        console.log("Invalid username or password. Please try again.");
+    }
+}
+
+// Function to log out a user
+function logoutUser(username) {
+    const user = usersDatabase.find(user => user.username === username);
+
+    if (user) {
+        user.loggedIn = false;
+        console.log(`User "${username}" logged out.`);
+    } else {
+        console.log("User not found.");
+    }
+}
+
+// Function to reset a user's password
+function resetPassword(username, newPassword) {
+    const user = usersDatabase.find(user => user.username === username);
+
+    if (user) {
+        user.password = newPassword;
+        console.log(`Password for user "${username}" has been reset.`);
+    } else {
+        console.log("User not found.");
+    }
+}
+
+// Example usage
+registerUser("user1", "password1");
+loginUser("user1", "password1");
+logoutUser("user1");
+resetPassword("user1", "newpassword");
+```
+
+User "user1" registered successfully.
+User "user1" logged in successfully.
+User "user1" logged out.
+Password for user "user1" has been reset.
+
+# weather data
+
+```javascript
+// Sample weather data
+const weatherData = [
+    { day: "Monday", temperature: 75 },
+    { day: "Tuesday", temperature: 82 },
+    { day: "Wednesday", temperature: 68 },
+    { day: "Thursday", temperature: 89 },
+    { day: "Friday", temperature: 73 },
+];
+
+// Function to find the day with the highest temperature using reduce
+function findDayWithHighestTemperature(data) {
+    return data.reduce((maxDay, day) => {
+        return day.temperature > maxDay.temperature ? day : maxDay;
+    }, data[0]);
+}
+
+// Function to find the day with the lowest temperature using reduce
+function findDayWithLowestTemperature(data) {
+    return data.reduce((minDay, day) => {
+        return day.temperature < minDay.temperature ? day : minDay;
+    }, data[0]);
+}
+
+const highestTemperatureDay = findDayWithHighestTemperature(weatherData);
+console.log(`Day with Highest Temperature: ${highestTemperatureDay.day} (${highestTemperatureDay.temperature}°F)`);
+
+const lowestTemperatureDay = findDayWithLowestTemperature(weatherData);
+console.log(`Day with Lowest Temperature: ${lowestTemperatureDay.day} (${lowestTemperatureDay.temperature}°F)`);
+
+```
+
+Day with Highest Temperature: Thursday (89°F)
+Day with Lowest Temperature: Wednesday (68°F)
