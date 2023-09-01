@@ -345,3 +345,239 @@ The greet function takes two arguments, greeting and name.
 The partial function is used to create a new function sayHello where the first argument is pre-filled with "Hello".
 When you call sayHello("Alice"), it's equivalent to calling greet("Hello", "Alice"), resulting in the output "Hello, Alice!". Similarly, sayHello("Bob") results in "Hello, Bob!".
 
+# Implement a function map that takes an array and a callback function, and returns a new array with the result of applying the callback to each element.
+
+```javascript
+function map(array, callback) {
+    const mappedArray = [];
+    for (let i = 0; i < array.length; i++) {
+        const result = callback(array[i]);
+        mappedArray.push(result);
+    }
+    return mappedArray;
+}
+function square(num) {
+    return num * num;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+
+const squaredNumbers = map(numbers, square);
+
+console.log(squaredNumbers); // Output: [1, 4, 9, 16, 25]
+
+```
+
+In this implementation:
+
+array is the input array you want to apply the callback to.
+callback is the function that will be applied to each element in the array.
+The map function iterates through each element in the array and applies the callback to it.
+The result of applying the callback is then added to the mappedArray.
+The mappedArray containing the results of applying the callback to each element is returned.
+
+# Write a memoization function that caches the results of expensive calculations to improve performance
+
+```javascript
+function memoize(func) {
+    const cache = new Map();
+    return function(...args) {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+        const result = func(...args);
+        cache.set(key, result);
+        return result;
+    };
+}
+
+function fibonacci(n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const memoizedFibonacci = memoize(fibonacci);
+
+console.time("Memoized");
+console.log("before cache ",fibonacci(104)); 
+console.timeEnd("Memoized");
+
+console.time("Memoized");
+console.log(memoizedFibonacci(104)); 
+console.timeEnd("Memoized");
+
+console.time("Original");
+console.log("after cache ",fibonacci(104)); 
+console.timeEnd("Original");
+```
+
+In this example, you'll likely notice a significant difference in execution time between the memoized version and the original version of the Fibonacci calculation, especially for larger values of n. The memoization technique helps avoid recalculating results for the same input, improving performance.
+
+output:
+before cache  55
+Memoized: 1.6ms
+55
+Memoized: 1.382ms
+after cache  55
+Original: 0.433ms
+
+# Write a function that takes an array of objects and sorts them based on a specific property.
+
+```javascript
+function sortByProperty(array, property) {
+    // return array.sort((a, b) => {
+    //     if (a[property] < b[property]) {
+    //         return -1;
+    //     }
+    //     if (a[property] > b[property]) {
+    //         return 1;
+    //     }
+    //     return 0;
+    // });
+
+   return array.sort((b,a) => {
+     if(b[property]<a[property]){
+       return 1;
+     }
+     if(b[property]>a[property]){
+       return -1;
+     }
+     return 0;
+   });
+}
+
+// Example array of objects
+const people = [
+    { name: "John", age: 30 },
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 35 },
+];
+
+// Sort the array of objects by the "age" property
+const sortedPeople = sortByProperty(people, "age");
+
+console.log(sortedPeople);
+```
+output
+[
+  { name: 'Bob', age: 35 },
+  { name: 'John', age: 30 },
+  { name: 'Alice', age: 25 }
+]
+
+in this example:
+
+The sortByProperty function takes an array and a property name as its parameters.
+It uses the sort method to sort the array of objects based on the specified property.
+The comparison function passed to sort compares the values of the specified property (a[property] and b[property]) to determine the sorting order.
+You can call sortByProperty with different properties to sort the array of objects by that property. In the example above, the objects are sorted by the "age" property in ascending order.
+
+# Create a function that takes an array and returns a new array with unique values (no duplicates).
+
+```javascript
+function uniqueArray(arr) {
+    return [...new Set(arr)];
+}
+
+// Example array with duplicates
+const originalArray = [1, 2, 2, 3, 4, 4, 5];
+
+// Get a new array with unique values
+const uniqueValues = uniqueArray(originalArray);
+
+console.log(uniqueValues); // Output: [1, 2, 3, 4, 5]
+
+```
+
+# Create a function that takes an array and returns a new array with unique values (no duplicates).
+
+```javascript
+function uniqueArray(arr) {
+    return [...new Set(arr)];
+}
+
+// Example array with duplicates
+const originalArray = [1, 2, 2, 3, 4, 4, 5];
+
+// Get a new array with unique values
+const uniqueValues = uniqueArray(originalArray);
+
+console.log(uniqueValues); // Output: [1, 2, 3, 4, 5]
+```
+
+The uniqueArray function takes an array arr as its parameter.
+It creates a Set from the input array, which automatically removes duplicate values because a Set can only contain unique values.
+The Set is then converted back to an array using the spread operator [...new Set(arr)].
+The result is a new array with unique values, and it's returned from the function.
+
+# Given an array of objects representing people, implement functions to find the oldest person, filter people by a specific age range, and sort them by name.
+
+```javascript
+function findOldestPerson(people) {
+    if (people.length === 0) {
+        return null; // Return null for an empty array
+    }
+
+    return people.reduce((oldest, person) => {
+        return person.age > oldest.age ? person : oldest;
+    }, people[0]);
+}
+function filterByAgeRange(people, minAge, maxAge) {
+    return people.filter(person => person.age >= minAge && person.age <= maxAge);
+}
+function sortByName(people) {
+    return people.slice().sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    });
+}
+const people = [
+    { name: "Alice", age: 30 },
+    { name: "Bob", age: 25 },
+    { name: "Charlie", age: 35 },
+    { name: "David", age: 40 }
+];
+
+const oldestPerson = findOldestPerson(people);
+console.log(oldestPerson); // Output: { name: "David", age: 40 }
+
+const ageRangeFiltered = filterByAgeRange(people, 30, 35);
+console.log(ageRangeFiltered); // Output: [{ name: "Alice", age: 30 }, { name: "Charlie", age: 35 }]
+
+const sortedByName = sortByName(people);
+console.log(sortedByName);
+```
+
+# Write a function that extracts key-value pairs from an object and returns them as an array of arrays.
+
+```javascript
+function objectToArray(obj) {
+    return Object.entries(obj);
+}
+
+// Example object
+const person = {
+    name: "Alice",
+    age: 30,
+    city: "New York"
+};
+
+const keyValuePairs = objectToArray(person);
+
+console.log(keyValuePairs);
+
+```
+
+In this code:
+
+The objectToArray function takes an object obj as its parameter.
+It uses Object.entries(obj) to convert the object's key-value pairs into an array of arrays, where each inner array contains two elements: the key and its corresponding value.
+When you call objectToArray(person) with the person object, you'll get the following output:
+
+[
+    ["name", "Alice"],
+    ["age", 30],
+    ["city", "New York"]
+]
