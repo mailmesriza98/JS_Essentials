@@ -1,5 +1,5 @@
 
-#Basic Promises
+# Basic Promises
 
 ```javascript
 // Creating a promise that resolves after a delay
@@ -41,7 +41,7 @@ errorPromise
 
 Here, a promise errorPromise is created, which rejects immediately with an error message. The error is caught and logged using the .catch() method.
 
-** Chaining Promises
+**Chaining Promises
 
 ```javascript
 // Creating a promise that resolves with a number
