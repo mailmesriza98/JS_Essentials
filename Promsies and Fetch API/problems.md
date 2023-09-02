@@ -547,3 +547,38 @@ In this example:
 This approach ensures that all pages are fetched and combined before further processing, and it handles errors for each page request as well.
 
 
+# Defference between promises and async await
+
+Promises and async/await are both mechanisms in JavaScript for dealing with asynchronous operations, but they have different syntax and usage patterns. Here's an overview of the key differences between them:
+
+1. **Syntax:**
+
+   - **Promises:** Promises use a `.then()` and `.catch()` syntax for handling asynchronous operations. You chain `.then()` handlers to a promise to specify what should happen when the promise resolves, and you use `.catch()` to specify what should happen if it rejects.
+
+   - **Async/Await:** Async/await uses the `async` keyword before a function to indicate that it contains asynchronous code. You use the `await` keyword inside the async function to pause execution until a promise is resolved. This allows you to write asynchronous code that looks more like synchronous code.
+
+2. **Error Handling:**
+
+   - **Promises:** Error handling in promises is typically done using the `.catch()` method or by chaining additional `.then()` handlers to handle errors at different stages of the promise chain.
+
+   - **Async/Await:** Error handling in async/await is often done using traditional `try...catch` blocks. You can catch errors within the async function as if it were synchronous code.
+
+3. **Readability:**
+
+   - **Promises:** Promises can lead to callback hell or "pyramid of doom" when chaining multiple asynchronous operations. However, they can be quite explicit and readable when used with care and proper indentation.
+
+   - **Async/Await:** Async/await is generally considered more readable and easier to understand, especially for complex asynchronous code. It allows you to write asynchronous code in a more linear, sequential style.
+
+4. **Error Propagation:**
+
+   - **Promises:** Errors in promises propagate through the chain, and you can catch them at various points in the chain using `.catch()`. This allows for fine-grained error handling.
+
+   - **Async/Await:** Errors in async/await functions propagate upwards in the call stack. If an error is not caught within the async function, it will be caught by the caller, which can make error handling less granular.
+
+5. **Compatibility:**
+
+   - **Promises:** Promises have been available in JavaScript for a longer time and are supported in a wider range of environments, including older browsers. You can also wrap callback-based APIs with promises.
+
+   - **Async/Await:** Async/await was introduced in ES2017 (ES8) and may not be available in older JavaScript environments without transpilation.
+
+In summary, promises and async/await are both valuable tools for working with asynchronous code in JavaScript. Async/await is often favored for its readability and ease of use, especially for more complex asynchronous workflows. However, both have their strengths, and the choice between them may depend on factors like coding style, project requirements, and compatibility constraints.
