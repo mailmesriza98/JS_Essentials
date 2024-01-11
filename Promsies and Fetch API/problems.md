@@ -108,7 +108,6 @@ function fetchMultipleData() {
       console.error("Error:", error);
     });
 }
-
 fetchMultipleData();
 ```
 
@@ -168,6 +167,7 @@ delay(2000)
     console.error("Error:", error);
   });
 ```
+
 
 This code creates a `delay` function that returns a promise, allowing you to create delays with `await` or `.then()`.
 
