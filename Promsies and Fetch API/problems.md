@@ -59,7 +59,8 @@ promise1
     console.log(result); // Output: 10
   });
 ```
-In this example, two .then() handlers are chained together. The first handler logs the result and returns a modified value, which is then passed to the second handler for further processing.
+In this example, 
+two .then() handlers are chained together. The first handler logs the result and returns a modified value, which is then passed to the second handler for further processing.
 
 These are simple examples of promises in JavaScript, demonstrating how promises can be used to handle asynchronous operations and error handling.
 
